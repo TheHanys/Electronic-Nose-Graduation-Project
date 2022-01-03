@@ -21,3 +21,4 @@ by comparing them to the data sets. This procedure classifies which gas was dete
 In the last stage, the signals will be sent to the data set. If any unusual events occur, a notification
 will be sent to the user.
 
+![System Overview (1)](https://user-images.githubusercontent.com/76770296/147992903-31447ff2-f573-49e1-ac81-48a0e4bd6133.png)
