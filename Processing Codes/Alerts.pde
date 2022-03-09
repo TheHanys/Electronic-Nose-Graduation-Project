@@ -1,4 +1,4 @@
-import processing.serial.*; 
+import processing.serial.*;  
 Serial mySerial;
 PrintWriter output;
 
