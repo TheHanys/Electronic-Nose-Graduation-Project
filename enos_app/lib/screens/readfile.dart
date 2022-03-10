@@ -22,12 +22,13 @@ class _readfileState extends State<readfile> {
 
   @override
   Widget build(BuildContext context) {
+    loadData();
     return Scaffold(
       appBar: AppBar(
         title: const Text('alerts'),
       ),
-      floatingActionButton: FloatingActionButton(
-          onPressed: loadData, child: const Icon(Icons.call)),
+      body: Center(
+          child: SizedBox(width: 300, child: Text(_data ?? 'Nothing to show'))),
     );
   }
 }
