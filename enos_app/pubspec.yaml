@@ -44,6 +44,7 @@ dependencies:
   flutter_phone_direct_caller: ^2.1.0
   url_launcher: ^6.0.20 #for opening google maps url
   geolocator: ^8.2.0 #for location services
+  path_provider: ^2.0.9
 dev_dependencies:
   flutter_test:
     sdk: flutter
