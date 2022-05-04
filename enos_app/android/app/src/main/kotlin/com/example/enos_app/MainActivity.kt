@@ -1,4 +1,4 @@
-package com.example.enos_app
+package com.team20.enos_app
 
 import io.flutter.embedding.android.FlutterActivity
 
