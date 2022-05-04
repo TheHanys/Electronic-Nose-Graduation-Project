@@ -26,6 +26,8 @@ class _editProfile extends State<editProfile> {
   String? _downloadURL;
   String? userid;
   String? _location;
+  bool? _isuserhome;
+  //String? _fileURL;
 
   Future uploadimage({String? userid}) async {
     final postID = DateTime.now().millisecondsSinceEpoch.toString();
@@ -54,7 +56,7 @@ class _editProfile extends State<editProfile> {
                     children: <Widget>[
                       AppBar(
                         title: Text('Edit Profile'),
-                        backgroundColor: Colors.red,
+                        backgroundColor: Colors.blueGrey,
                       ),
                       SizedBox(
                         height: 80,
@@ -62,48 +64,75 @@ class _editProfile extends State<editProfile> {
                       TextFormField(
                         //controller: name,
                         decoration: InputDecoration(
-                            border: OutlineInputBorder(),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(60.0),
+                              borderSide: BorderSide(
+                                color: Colors.grey,
+                                width: 2.0,
+                              ),
+                            ),
                             hintText: userdata.name),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter your Name';
+                            return 'Please update Name';
                           }
                           _currentname = value;
                           return null;
                         },
                       ),
+                      SizedBox(
+                        height: 10,
+                      ),
                       TextFormField(
                         //controller: userName,
                         decoration: InputDecoration(
-                            border: OutlineInputBorder(),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(60.0),
+                              borderSide: BorderSide(
+                                color: Colors.grey,
+                                width: 2.0,
+                              ),
+                            ),
                             hintText: userdata.userName),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter your username';
+                            return 'Please update username';
                           }
                           _currentusername = value;
                           return null;
                         },
                       ),
+                      SizedBox(
+                        height: 10,
+                      ),
                       TextFormField(
                         keyboardType: TextInputType.phone,
                         decoration: InputDecoration(
-                            border: OutlineInputBorder(),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(60.0),
+                              borderSide: BorderSide(
+                                color: Colors.grey,
+                                width: 2.0,
+                              ),
+                            ),
                             hintText: userdata.phoneNumber),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please enter your phone number';
+                            return 'Please update phone number';
                           }
                           _currentphonenumber = value;
                           return null;
                         },
                       ),
                       SizedBox(
-                        height: 80,
+                        height: 30,
                       ),
                       ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            primary: Colors.red,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                            primary: Colors.blueGrey,
                           ),
                           onPressed: () async {
                             if (_formkey.currentState!.validate()) {
@@ -114,14 +143,22 @@ class _editProfile extends State<editProfile> {
                                 _currentphonenumber ?? userdata.phoneNumber,
                                 _downloadURL ?? userdata.downloadURL,
                                 _location ?? userdata.location,
+                                _isuserhome ?? userdata.isuserhome,
+                                //   _fileURL ?? userdata.fileURL,
                               );
                               Navigator.pop(context);
                             }
                           },
                           child: Text('update information')),
+                      SizedBox(
+                        height: 60,
+                      ),
                       ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            primary: Colors.red,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                            primary: Colors.blueGrey,
                           ),
                           onPressed: () async {
                             print(userdata.downloadURL);
@@ -149,9 +186,15 @@ class _editProfile extends State<editProfile> {
                             }
                           },
                           child: Text('choose profile picture')),
+                      SizedBox(
+                        height: 10,
+                      ),
                       ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            primary: Colors.red,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                            primary: Colors.blueGrey,
                           ),
                           onPressed: () async {
                             await DatabaseService(uid: userdata.uid)
@@ -161,6 +204,8 @@ class _editProfile extends State<editProfile> {
                               _currentphonenumber ?? userdata.phoneNumber,
                               _downloadURL ?? userdata.downloadURL,
                               _location ?? userdata.location,
+                              _isuserhome ?? userdata.isuserhome,
+                              // _fileURL ?? userdata.fileURL,
                             );
                             if (_downloadURL == null) {
                               const snackBarup = SnackBar(
@@ -178,9 +223,15 @@ class _editProfile extends State<editProfile> {
                             }
                           },
                           child: Text('update profile picture')),
+                      SizedBox(
+                        height: 10,
+                      ),
                       ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            primary: Colors.red,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(30),
+                            ),
+                            primary: Colors.blueGrey,
                           ),
                           onPressed: () {
                             Navigator.push(
@@ -188,7 +239,7 @@ class _editProfile extends State<editProfile> {
                                 MaterialPageRoute(
                                     builder: (context) => location()));
                           },
-                          child: Text('update location'))
+                          child: Text('update your location'))
                     ],
                   ),
                 ));

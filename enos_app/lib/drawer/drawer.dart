@@ -1,5 +1,6 @@
 import 'package:enos_app/models/user.dart';
 import 'package:enos_app/screens/alerthistory.dart';
+import 'package:enos_app/screens/readtxt.dart';
 import 'package:enos_app/services/auth.dart';
 import 'package:enos_app/services/database.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +9,7 @@ import 'package:enos_app/screens/home_page.dart';
 import 'package:enos_app/screens/profile.dart';
 import 'package:enos_app/screens/aboutus.dart';
 import 'package:provider/provider.dart';
+import 'package:enos_app/screens/location_page.dart';
 
 class MyDrawer extends StatelessWidget {
   final AuthService _auth = AuthService();
@@ -26,7 +28,7 @@ class MyDrawer extends StatelessWidget {
               child: ListView(padding: EdgeInsets.all(0.0), children: <Widget>[
                 UserAccountsDrawerHeader(
                   decoration: BoxDecoration(
-                    color: Colors.red,
+                    color: Colors.blueGrey,
                   ),
                   accountName: Text(userdata.name!),
                   accountEmail: Text(''),
@@ -63,6 +65,22 @@ class MyDrawer extends StatelessWidget {
                         MaterialPageRoute(builder: (context) => History()));
                   },
                 ),
+                ListTile(
+                  title: Text('Location'),
+                  leading: Icon(Icons.location_on),
+                  onTap: () {
+                    Navigator.push(context,
+                        MaterialPageRoute(builder: (context) => locationn()));
+                  },
+                ),
+                // ListTile(
+                //  title: Text('upload file'),
+                //  leading: Icon(Icons.location_on),
+                //  onTap: () {
+                //    Navigator.push(context,
+                //       MaterialPageRoute(builder: (context) => uploadfile()));
+                //  },
+                //  ),
                 ListTile(
                   title: Text('About us'),
                   leading: Icon(Icons.support_agent),

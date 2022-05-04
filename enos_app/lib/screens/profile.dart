@@ -27,34 +27,48 @@ class _profileState extends State<profile> {
             return Scaffold(
               appBar: AppBar(
                 title: Text('profile'),
-                backgroundColor: Colors.red,
+                backgroundColor: Colors.blueGrey,
               ),
               drawer: MyDrawer(),
               body: ListView(
                 children: [
+                  SizedBox(height: 20),
                   ClipRRect(
-                    borderRadius: BorderRadius.circular(12.0),
+                    borderRadius: BorderRadius.circular(10.0),
                     child: Image.network(
                       userdata.downloadURL!,
-                      height: 300,
-                      fit: BoxFit.fill,
+                      height: 130.0,
+                      width: 130.0,
                     ),
                   ),
-                  Text(
-                    'Name: ' + userdata.name!,
-                    style: TextStyle(fontSize: 30, color: Colors.black),
-                  ),
-                  Text(
-                    'Username: ' + userdata.userName!,
-                    style: TextStyle(fontSize: 30, color: Colors.black),
-                  ),
-                  Text(
-                    'Phone: ' + userdata.phoneNumber!,
-                    style: TextStyle(fontSize: 30, color: Colors.black),
-                  ),
+                  SizedBox(height: 100),
+                  Text('Name: ',
+                      style: TextStyle(fontSize: 15, color: Colors.grey),
+                      textAlign: TextAlign.center),
+                  Text(userdata.name!,
+                      style: TextStyle(fontSize: 20, color: Colors.black),
+                      textAlign: TextAlign.center),
+                  SizedBox(height: 10),
+                  Text('Username: ',
+                      style: TextStyle(fontSize: 15, color: Colors.grey),
+                      textAlign: TextAlign.center),
+                  Text(userdata.userName!,
+                      style: TextStyle(fontSize: 20, color: Colors.black),
+                      textAlign: TextAlign.center),
+                  SizedBox(height: 10),
+                  Text('Phone number: ',
+                      style: TextStyle(fontSize: 15, color: Colors.grey),
+                      textAlign: TextAlign.center),
+                  Text(userdata.phoneNumber!,
+                      style: TextStyle(fontSize: 20, color: Colors.black),
+                      textAlign: TextAlign.center),
+                  SizedBox(height: 100),
                   ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.red,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        primary: Colors.blueGrey,
                       ),
                       onPressed: () {
                         Navigator.push(

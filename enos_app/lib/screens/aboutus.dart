@@ -11,46 +11,36 @@ class _aboutus extends State<aboutus> {
     return Scaffold(
         appBar: AppBar(
           title: Text('About us '),
-          backgroundColor: Colors.red,
+          backgroundColor: Colors.blueGrey,
         ),
-        body: ListView(
-          children: [
-            Image.asset(
-              'assets/images/enose.png',
-              width: 600,
-              height: 240,
-              fit: BoxFit.cover,
-            ),
-            Container(
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Text(
-                    'ENose',
-                    style: TextStyle(fontSize: 30),
-                  ),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Text(
-                    'Developed by MIU Students',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 15),
-                  ),
-                  SizedBox(
-                    height: 40,
-                  ),
-                  Text(
-                    'To begin utilizing our services please connect the device to the electronic nose, and begin recording the detections detected by the electronic nose.',
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 15),
-                  ),
-                ],
+        body: Container(
+          child: Column(
+            children: [
+              SizedBox(
+                height: 100,
               ),
-            )
-          ],
+              Text(
+                'Sense For Me',
+                style: TextStyle(fontSize: 30),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              //Text(
+              //'Developed by MIU Students',
+              //textAlign: TextAlign.center,
+              //style: TextStyle(fontSize: 15),
+              //),
+              SizedBox(
+                height: 70,
+              ),
+              Text(
+                'Our proposed system aims to assist Anosmic people, by helping them recognize whether the place they occupy is safe or not; that with taking into consideration many aspects, starting from life-threatening situations that could be fatal, going through subjects that could threaten their health, and finally making sure they are in a safe surrounding free of any harmful-inhaled substances. To begin utilizing our services please connect the device to the electronic nose, and begin recording the detections detected by the electronic nose.',
+                textAlign: TextAlign.left,
+                style: TextStyle(fontSize: 15),
+              ),
+            ],
+          ),
         ));
   }
 }

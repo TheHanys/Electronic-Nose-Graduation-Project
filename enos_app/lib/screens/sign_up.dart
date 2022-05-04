@@ -21,33 +21,35 @@ class _accountState extends State<account> {
   String downloadURL = 'https://www.un.org/sites/un2.un.org/files/user.png';
   String error = '';
   String location = '';
+  String fileURL = '';
   final AuthService _auth = AuthService();
   final _formkey = GlobalKey<FormState>();
   bool loading = false;
-
+  bool? isuserhome;
   @override
   Widget build(BuildContext context) {
     return loading
         ? Loading()
         : Scaffold(
+            backgroundColor: Colors.blue[50],
             resizeToAvoidBottomInset: false,
             body: Form(
               key: _formkey,
               child: Column(
                 children: <Widget>[
-                  AppBar(
-                    title: Text('Sign up'),
-                    backgroundColor: Colors.red,
-                  ),
+                  //AppBar(
+                  // title: Text('Sign up'),
+                  //  backgroundColor: Colors.blueGrey,
+                  //  ),
                   SizedBox(
-                    height: 70,
+                    height: 150,
                   ),
                   Container(
                       width: double.infinity,
                       child: Column(
                         children: [
                           Text(
-                            'ENose',
+                            'Sense For Me',
                             textAlign: TextAlign.center,
                             style: TextStyle(fontSize: 40),
                           ),
@@ -57,13 +59,17 @@ class _accountState extends State<account> {
                     height: 50,
                   ),
                   TextFormField(
+                    decoration: InputDecoration(
+                        contentPadding:
+                            EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                        hintText: 'enter your Name',
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(32.0))),
                     onChanged: (value) {
                       setState(() {
                         name = value;
                       });
                     },
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(), hintText: 'Name'),
                     validator: (namevalue) {
                       if (namevalue == null || namevalue.isEmpty) {
                         return 'Please enter your Name';
@@ -71,7 +77,14 @@ class _accountState extends State<account> {
                       return null;
                     },
                   ),
+                  SizedBox(height: 20),
                   TextFormField(
+                    decoration: InputDecoration(
+                        contentPadding:
+                            EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                        hintText: 'enter your password',
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(32.0))),
                     obscureText: true,
                     onChanged: (value) {
                       setState(() {
@@ -80,8 +93,6 @@ class _accountState extends State<account> {
                     },
                     enableSuggestions: false,
                     autocorrect: false,
-                    decoration: InputDecoration(
-                        hintText: 'password', border: OutlineInputBorder()),
                     validator: (passvalue) {
                       if (passvalue == null || passvalue.isEmpty) {
                         return 'Please enter password';
@@ -91,14 +102,19 @@ class _accountState extends State<account> {
                       return null;
                     },
                   ),
+                  SizedBox(height: 20),
                   TextFormField(
+                    decoration: InputDecoration(
+                        contentPadding:
+                            EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                        hintText: 'enter your Email',
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(32.0))),
                     onChanged: (value) {
                       setState(() {
                         email = value;
                       });
                     },
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(), hintText: 'Email'),
                     validator: (emailvalue) {
                       if (emailvalue == null || emailvalue.isEmpty) {
                         return 'Please enter your email';
@@ -106,14 +122,19 @@ class _accountState extends State<account> {
                       return null;
                     },
                   ),
+                  SizedBox(height: 20),
                   TextFormField(
+                    decoration: InputDecoration(
+                        contentPadding:
+                            EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                        hintText: 'enter your username',
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(32.0))),
                     onChanged: (value) {
                       setState(() {
                         username = value;
                       });
                     },
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(), hintText: 'Username'),
                     validator: (usernamevalue) {
                       if (usernamevalue == null || usernamevalue.isEmpty) {
                         return 'Please enter your username';
@@ -121,17 +142,20 @@ class _accountState extends State<account> {
                       return null;
                     },
                   ),
+                  SizedBox(height: 20),
                   TextFormField(
+                    decoration: InputDecoration(
+                        contentPadding:
+                            EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                        hintText: 'enter your phone number',
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(32.0))),
                     onChanged: (value) {
                       setState(() {
                         phonenumber = value;
                       });
                     },
                     keyboardType: TextInputType.phone,
-                    decoration: InputDecoration(
-                      border: OutlineInputBorder(),
-                      hintText: 'Phone number',
-                    ),
                     validator: (phonenumbervalue) {
                       if (phonenumbervalue == null ||
                           phonenumbervalue.isEmpty) {
@@ -145,7 +169,10 @@ class _accountState extends State<account> {
                   ),
                   ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.red,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        primary: Colors.blueGrey,
                       ),
                       onPressed: () async {
                         if (_formkey.currentState!.validate()) {
@@ -160,6 +187,8 @@ class _accountState extends State<account> {
                             phonenumber,
                             downloadURL,
                             location,
+                            isuserhome,
+                            // fileURL,
                           );
                           if (result == null) {
                             setState(() {
@@ -184,7 +213,8 @@ class _accountState extends State<account> {
                       TextButton(
                         child: Text(
                           'Sign in',
-                          style: TextStyle(fontSize: 20, color: Colors.red),
+                          style:
+                              TextStyle(fontSize: 20, color: Colors.blueGrey),
                         ),
                         onPressed: () {
                           Navigator.push(

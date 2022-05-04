@@ -5,9 +5,18 @@ import 'package:enos_app/screens/readfile.dart';
 import 'package:flutter/material.dart';
 import 'package:enos_app/drawer/drawer.dart';
 import 'package:flutter/services.dart';
+import 'package:http/http.dart' as http;
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:path_provider/path_provider.dart';
-import 'package:firebase_storage/firebase_storage.dart';
+import 'package:firebase_storage/firebase_storage.dart' as firebase_storage;
+import '../models/user.dart';
+import '../services/database.dart';
+import '../shared/loading.dart';
+import 'package:dio/dio.dart';
+import '../controllers/message_controller.dart';
+import '../models/message.dart';
+import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class HomePage extends StatefulWidget {
   @override
@@ -15,59 +24,33 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  String? _data;
-
-  Future<void> loadData() async {
-    final _loadedData = await rootBundle.loadString('assets/file.txt');
-    // LineSplitter.split(_data!).forEach((line) => print('$line'));
-    _data = _loadedData;
-    print(_data);
-    setState(() {
-      Text(_data ?? "no leaks");
+  void connect() {
+    IO.Socket socket = IO.io('http://192.168.1.5:5000', <String, dynamic>{
+      'transports': ['websocket'],
+      'autoConnect': false,
     });
+    socket.connect();
+    socket.onConnect(((msg) => print("connected")));
+    socket.on("Alert", (msg) {
+      // print(msg);
+      socket.on('Alert', (data) => print(msg));
+    });
+    print(socket.connected);
+
+    print(socket.id);
   }
-  // Future<void> loadData() async {
-  //   final _loadedData = await rootBundle.loadString('assets/file.txt');
-  //   setState(() {
-  //     _data = _loadedData;
-  //   });
-  // }
 
-  // Future<void> uploadExample() async {
-  //   Directory appDocDir = await getApplicationDocumentsDirectory();
-  //   String filePath = 'C:\\Users\\dell\\OneDrive\\Desktop\\tete.txt';
-  //   // ...
-  //   await uploadFile(filePath);
-  // }
-
-  // Future<void> uploadFile(String filePath) async {
-  //   File file = File(filePath);
-  //   print(file);
-
-  //   try {
-  //     await FirebaseStorage.instance.ref().putFile(file);
-  //     print('zzz');
-  //   } on firebase_core.FirebaseException catch (e) {
-  //     e.code == 'canceled';
-  //   }
-  // }
+  void initstate() {
+    super.initState();
+    connect();
+  }
 
   @override
   Widget build(BuildContext context) {
-    // uploadExample();
-    loadData();
-    print(_data);
-    final newdata = LineSplitter().convert(_data ?? "");
-    // for (var i = 0; i < newdata.length; i++) {
-    //   setState(() {
-    //     Text(newdata[i]);
-    //     print('$i: ${newdata[i]}');
-    //   });
-    // }
     return Scaffold(
       appBar: AppBar(
         title: Text('Alerts'),
-        backgroundColor: Colors.red,
+        backgroundColor: Colors.blueGrey,
         actions: <Widget>[
           IconButton(
             icon: Icon(
@@ -81,15 +64,13 @@ class _HomePageState extends State<HomePage> {
         ],
       ),
       drawer: MyDrawer(),
-      body: ListView(
-        padding: const EdgeInsets.all(8),
-        children: <Widget>[
-          ListTile(
-              title: Text(_data ?? "no leaks"),
-              subtitle: Text("8/3/2022"),
-              leading: Icon(Icons.warning),
-              trailing: Icon(Icons.delete)),
-        ],
+      body: ElevatedButton(
+        onPressed: () {
+          setState(() {
+            connect();
+          });
+        },
+        child: const Text('Send Message'),
       ),
     );
   }

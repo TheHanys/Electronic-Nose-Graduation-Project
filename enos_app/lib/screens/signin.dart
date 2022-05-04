@@ -1,5 +1,4 @@
 import 'package:enos_app/screens/home_page.dart';
-import 'package:enos_app/screens/location.dart';
 import 'package:enos_app/services/auth.dart';
 import 'package:enos_app/shared/loading.dart';
 import 'package:flutter/material.dart';
@@ -24,40 +23,38 @@ class _SigninState extends State<Signin> {
     return loading
         ? Loading()
         : Scaffold(
+            backgroundColor: Colors.blue[50],
             resizeToAvoidBottomInset: false,
             body: Form(
               key: _formkey,
               child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
-                  AppBar(
-                    backgroundColor: Colors.red,
-                    title: Text('Sign in'),
+                  Text(
+                    "Welcome!",
+                    style: TextStyle(
+                        color: Colors.blueGrey,
+                        fontSize: 38,
+                        fontWeight: FontWeight.bold),
                   ),
+                  Text(' Sense For Me'),
                   SizedBox(
-                    height: 80,
-                  ),
-                  Container(
-                      width: double.infinity,
-                      child: Column(
-                        children: [
-                          Text(
-                            'ENose',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 40),
-                          ),
-                        ],
-                      )),
-                  SizedBox(
-                    height: 80,
+                    height: 100,
                   ),
                   TextFormField(
+                    textAlign: TextAlign.center,
+                    keyboardType: TextInputType.text,
                     onChanged: (value) {
                       setState(() {
                         email = value;
                       });
                     },
                     decoration: InputDecoration(
-                        border: OutlineInputBorder(), hintText: 'E-mail'),
+                        contentPadding:
+                            EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
+                        hintText: 'enter your email',
+                        border: OutlineInputBorder(
+                            borderRadius: BorderRadius.circular(32.0))),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter your email';
@@ -65,7 +62,12 @@ class _SigninState extends State<Signin> {
                       return null;
                     },
                   ),
+                  SizedBox(
+                    height: 10,
+                  ),
                   TextFormField(
+                    textAlign: TextAlign.center,
+                    keyboardType: TextInputType.text,
                     onChanged: (value) {
                       setState(() {
                         password = value;
@@ -75,7 +77,10 @@ class _SigninState extends State<Signin> {
                     enableSuggestions: false,
                     autocorrect: false,
                     decoration: InputDecoration(
-                        hintText: 'password', border: OutlineInputBorder()),
+                        hintText: 'Enter your password',
+                        border: OutlineInputBorder(
+                          borderRadius: BorderRadius.circular(60.0),
+                        )),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter password';
@@ -86,11 +91,14 @@ class _SigninState extends State<Signin> {
                     },
                   ),
                   SizedBox(
-                    height: 20,
+                    height: 80,
                   ),
                   ElevatedButton(
                       style: ElevatedButton.styleFrom(
-                        primary: Colors.red,
+                        shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(30),
+                        ),
+                        primary: Colors.blueGrey,
                       ),
                       onPressed: () async {
                         if (_formkey.currentState!.validate()) {
@@ -116,17 +124,24 @@ class _SigninState extends State<Signin> {
                           );
                         }
                       },
-                      child: Text('Sign in')),
+                      child: Text(
+                        'Sign in',
+                        style: TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 20),
+                      )),
                   Column(
                     children: [
                       SizedBox(
-                        height: 15,
+                        height: 20,
                       ),
-                      Text('dont have an account?'),
+                      Text('Create an account?'),
                       TextButton(
                         child: Text(
                           'Sign up',
-                          style: TextStyle(fontSize: 20, color: Colors.red),
+                          style:
+                              TextStyle(fontSize: 20, color: Colors.blueGrey),
                         ),
                         onPressed: () {
                           Navigator.push(
@@ -138,11 +153,15 @@ class _SigninState extends State<Signin> {
                     ],
                     mainAxisAlignment: MainAxisAlignment.center,
                   ),
+                  SizedBox(
+                    height: 60,
+                  ),
                   Column(
                     children: [
                       Text(
                         error,
-                        style: TextStyle(color: Colors.red, fontSize: 14.0),
+                        style:
+                            TextStyle(color: Colors.blueGrey, fontSize: 14.0),
                       )
                     ],
                     mainAxisAlignment: MainAxisAlignment.center,

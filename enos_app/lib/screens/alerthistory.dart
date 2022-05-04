@@ -67,18 +67,7 @@ class _HistoryState extends State<History> {
     return Scaffold(
       appBar: AppBar(
         title: Text('Alerts'),
-        backgroundColor: Colors.red,
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(
-              Icons.call,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              launch("tel:122");
-            },
-          )
-        ],
+        backgroundColor: Colors.blueGrey,
       ),
       drawer: MyDrawer(),
       body: ListView(
@@ -86,7 +75,6 @@ class _HistoryState extends State<History> {
         children: <Widget>[
           ListTile(
               title: Text(_data ?? "no leaks"),
-              subtitle: Text("8/3/2022"),
               leading: Icon(Icons.warning),
               trailing: Icon(Icons.delete)),
         ],

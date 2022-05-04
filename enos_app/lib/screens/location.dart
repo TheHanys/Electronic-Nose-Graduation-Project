@@ -21,7 +21,9 @@ class _locationState extends State<location> {
   String? _currentphonenumber;
   String? _downloadURL;
   String? userid;
+  bool? _isuserhome;
   String? _location;
+  String? _fileURL;
 
   // function for getting the current location
   // but before that you need to add this permission!
@@ -66,7 +68,7 @@ class _locationState extends State<location> {
                 visualDensity: VisualDensity.adaptivePlatformDensity,
               ),
               home: Scaffold(
-                backgroundColor: Colors.red,
+                backgroundColor: Colors.blueGrey,
                 body: Center(
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.center,
@@ -98,15 +100,27 @@ class _locationState extends State<location> {
                         ),
                       ),
                       SizedBox(
-                        height: 05.0,
+                        height: 10.0,
                       ),
                       ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          primary: Colors.blue,
+                        ),
                         onPressed: () {
                           getCurrentLocation();
                         },
-                        child: Text("Get User Location"),
+                        child: Text("Get your Location"),
                       ),
                       ElevatedButton(
+                        style: ElevatedButton.styleFrom(
+                          shape: RoundedRectangleBorder(
+                            borderRadius: BorderRadius.circular(30),
+                          ),
+                          primary: Colors.blue,
+                        ),
                         onPressed: () async {
                           Navigator.push(
                               context,
@@ -120,9 +134,11 @@ class _locationState extends State<location> {
                             _currentphonenumber ?? userdata.phoneNumber,
                             _downloadURL ?? userdata.downloadURL,
                             _location ?? userdata.location,
+                            _isuserhome ?? userdata.isuserhome,
+                            //  _fileURL ?? userdata.fileURL,
                           );
                         },
-                        child: Text("Confirm"),
+                        child: Text("Confirm location"),
                       ),
                     ],
                   ),
