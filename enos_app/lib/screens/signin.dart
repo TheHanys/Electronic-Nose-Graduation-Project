@@ -3,6 +3,7 @@ import 'package:enos_app/services/auth.dart';
 import 'package:enos_app/shared/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:enos_app/screens/sign_up.dart';
+import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class Signin extends StatefulWidget {
   const Signin({Key? key}) : super(key: key);
@@ -12,6 +13,22 @@ class Signin extends StatefulWidget {
 }
 
 class _SigninState extends State<Signin> {
+  /*connect() async {
+    IO.Socket socket = IO.io('http://192.168.1.4:5000', <String, dynamic>{
+      'transports': ['websocket'],
+     'autoConnect': false,
+    });
+    socket.connect();
+    socket.onConnect(((msg) => print("connected")));
+    print(socket.connected);
+    print(socket.id);
+  }
+
+  void initstate() {
+    super.initState();
+    connect();
+  }
+*/
   final AuthService _auth = AuthService();
   final _formkey = GlobalKey<FormState>();
   bool loading = false;
@@ -104,6 +121,7 @@ class _SigninState extends State<Signin> {
                         if (_formkey.currentState!.validate()) {
                           setState(() {
                             loading = true;
+                            // connect();
                           });
                           dynamic result = await _auth.signin(email, password);
                           if (result == null) {

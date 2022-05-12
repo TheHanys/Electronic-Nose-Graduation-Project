@@ -1,5 +1,4 @@
-class Message {
+class MessageModel {
   String message;
-
-  Message({required this.message});
+  MessageModel({required this.message});
 }
