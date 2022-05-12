@@ -1,3 +1,4 @@
+import 'dart:ffi';
 import 'dart:io';
 import 'package:enos_app/screens/location.dart';
 import 'package:enos_app/services/database.dart';
@@ -27,6 +28,7 @@ class _locationn extends State<locationn> {
   String? userid;
   String? _location;
   bool? _isuserhome;
+  List? _msgs;
   //String? _fileURL;
 
   Future uploadimage({String? userid}) async {
@@ -76,6 +78,7 @@ class _locationn extends State<locationn> {
                               _downloadURL ?? userdata.downloadURL,
                               _location ?? userdata.location,
                               _isuserhome ?? userdata.isuserhome,
+                               _msgs ?? userdata.msgs,
                               //  _fileURL ?? userdata.fileURL,
                             );
                             setState(() {
@@ -95,6 +98,7 @@ class _locationn extends State<locationn> {
                               _downloadURL ?? userdata.downloadURL,
                               _location ?? userdata.location,
                               _isuserhome ?? userdata.isuserhome,
+                               _msgs ?? userdata.msgs,
                               //  _fileURL ?? userdata.fileURL,
                             );
                             setState(() {

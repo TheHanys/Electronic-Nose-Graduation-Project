@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:enos_app/services/database.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:enos_app/models/user.dart';
@@ -40,6 +42,7 @@ class AuthService {
     String downloadURL,
     String location,
     bool? isuserhome,
+    List?msgs,
     //String fileURL
   ) async {
     try {
@@ -49,7 +52,7 @@ class AuthService {
 
       //create a new document for the user with the uid
       await DatabaseService(uid: user!.uid).updateUserData(
-          name, username, phonenumber, downloadURL, location, isuserhome);
+          name, username, phonenumber, downloadURL, location, isuserhome,msgs);
       print(user.uid);
       return _userFromFirebaseUser(user);
     } catch (e) {

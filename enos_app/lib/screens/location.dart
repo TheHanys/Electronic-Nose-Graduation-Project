@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:enos_app/models/user.dart';
 import 'package:enos_app/screens/home_page.dart';
 import 'package:enos_app/services/database.dart';
@@ -24,6 +26,7 @@ class _locationState extends State<location> {
   bool? _isuserhome;
   String? _location;
   String? _fileURL;
+  List? _msgs;
 
   // function for getting the current location
   // but before that you need to add this permission!
@@ -135,6 +138,7 @@ class _locationState extends State<location> {
                             _downloadURL ?? userdata.downloadURL,
                             _location ?? userdata.location,
                             _isuserhome ?? userdata.isuserhome,
+                            _msgs ?? userdata.msgs,
                             //  _fileURL ?? userdata.fileURL,
                           );
                         },

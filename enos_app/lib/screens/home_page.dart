@@ -1,9 +1,13 @@
 import 'package:enos_app/models/message.dart';
 import 'package:flutter/material.dart';
 import 'package:enos_app/drawer/drawer.dart';
+import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:socket_io_client/socket_io_client.dart' as IO;
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
+import '../models/user.dart';
+import '../services/database.dart';
+import '../shared/loading.dart';
 
 FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin =
     FlutterLocalNotificationsPlugin();
@@ -17,6 +21,14 @@ class _HomePageState extends State<HomePage> {
   List<MessageModel> messages = [];
   var Alert = "";
   List<String> Alerts = [];
+  String? _currentname;
+  String? _currentusername;
+  String? _currentphonenumber;
+  String? _downloadURL;
+  String? userid;
+  String? _location;
+  bool? _isuserhome;
+  List? _msgs;
 
   IO.Socket socket = IO.io('http://192.168.1.4:5000', <String, dynamic>{
     'transports': ['websocket'],
@@ -24,23 +36,23 @@ class _HomePageState extends State<HomePage> {
   });
   connect() async {
     socket.connect();
-    //print("connected");
     print(socket.id);
     print(socket.connected);
   }
 
-  void RecweiveMsg() {
-    socket.onConnect((msg) {
-      socket.on("Alert", (msg) {
-        print(msg);
-        Alert = msg;
-        Alerts.add(msg);
+  RecweiveMsg() {
+    setState(() {
+      socket.onConnect((msg) {
+        socket.on("Alert", (msg) {
+          print(msg);
+          Alert = msg;
+          Alerts.add(msg);
+        });
       });
     });
   }
 
   get onDidRecieveLocalNotification => null;
-
   get onSelectNotification => null;
   void initState() {
     super.initState();
@@ -71,41 +83,63 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    connect();
-    //setState(() {
-    RecweiveMsg();
-    _showNotification();
-    //});
+    setState(() {
+      connect();
+      connect();
+      RecweiveMsg();
+      _showNotification();
+    });
+    final user = Provider.of<Myuser?>(context);
+    return StreamBuilder<Myuser?>(
+        stream: DatabaseService(uid: user!.uid).userData,
+        builder: (context, snapshot) {
+          //print(snapshot.hasData);
+          if (snapshot.hasData) {
+            Myuser userdata = snapshot.data!;
+            _msgs = Alerts;
+            DatabaseService(uid: userdata.uid).updateUserData(
+              _currentname ?? userdata.name,
+              _currentusername ?? userdata.userName,
+              _currentphonenumber ?? userdata.phoneNumber,
+              _downloadURL ?? userdata.downloadURL,
+              _location ?? userdata.location,
+              _isuserhome ?? userdata.isuserhome,
+              _msgs ?? userdata.msgs,
+            );
 
-    return Scaffold(
-        appBar: AppBar(
-          title: Text('Alerts'),
-          backgroundColor: Colors.blueGrey,
-          actions: <Widget>[
-            IconButton(
-              icon: Icon(
-                Icons.call,
-                color: Colors.white,
-                size: 30,
-              ),
-              onPressed: () {
-                launch("tel:122");
-              },
-            )
-          ],
-        ),
-        drawer: MyDrawer(),
-        body: ListView.builder(
-            itemCount: Alerts.length,
-            itemBuilder: (context, index) {
-              return Container(
-                  decoration: BoxDecoration(
-                    //                    <-- BoxDecoration
-                    border: Border(bottom: BorderSide(), right: BorderSide()),
-                  ),
-                  child: ListTile(
-                    title: Text('${Alerts[index]}'),
-                  ));
-            }));
+            return Scaffold(
+                appBar: AppBar(
+                  title: Text('Alerts'),
+                  backgroundColor: Colors.blueGrey,
+                  actions: <Widget>[
+                    IconButton(
+                      icon: Icon(
+                        Icons.call,
+                        color: Colors.white,
+                        size: 30,
+                      ),
+                      onPressed: () {
+                        launch("tel:122");
+                      },
+                    )
+                  ],
+                ),
+                drawer: MyDrawer(),
+                body: ListView.builder(
+                    itemCount: Alerts.length,
+                    itemBuilder: (context, index) {
+                      return Container(
+                          decoration: BoxDecoration(
+                            border: Border(
+                                bottom: BorderSide(), right: BorderSide()),
+                          ),
+                          child: ListTile(
+                            title: Text('${Alerts[index]}'),
+                          ));
+                    }));
+          } else {
+            return Loading();
+          }
+        });
   }
 }

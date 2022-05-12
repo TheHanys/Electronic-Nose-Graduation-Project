@@ -54,7 +54,7 @@ class _SigninState extends State<Signin> {
                         fontSize: 38,
                         fontWeight: FontWeight.bold),
                   ),
-                  Text(' Sense For Me'),
+                  Text('Enose'),
                   SizedBox(
                     height: 100,
                   ),

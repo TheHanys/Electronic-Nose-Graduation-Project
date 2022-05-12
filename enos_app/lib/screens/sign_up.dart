@@ -1,3 +1,5 @@
+import 'dart:ffi';
+
 import 'package:enos_app/screens/home_page.dart';
 import 'package:enos_app/services/auth.dart';
 import 'package:enos_app/shared/loading.dart';
@@ -26,6 +28,7 @@ class _accountState extends State<account> {
   final _formkey = GlobalKey<FormState>();
   bool loading = false;
   bool? isuserhome;
+  List? msgs;
   @override
   Widget build(BuildContext context) {
     return loading
@@ -188,6 +191,7 @@ class _accountState extends State<account> {
                             downloadURL,
                             location,
                             isuserhome,
+                            msgs,
                             // fileURL,
                           );
                           if (result == null) {

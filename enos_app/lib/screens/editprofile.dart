@@ -27,6 +27,7 @@ class _editProfile extends State<editProfile> {
   String? userid;
   String? _location;
   bool? _isuserhome;
+  List? _msgs;
   //String? _fileURL;
 
   Future uploadimage({String? userid}) async {
@@ -144,6 +145,8 @@ class _editProfile extends State<editProfile> {
                                 _downloadURL ?? userdata.downloadURL,
                                 _location ?? userdata.location,
                                 _isuserhome ?? userdata.isuserhome,
+                                _msgs ?? userdata.msgs,
+
                                 //   _fileURL ?? userdata.fileURL,
                               );
                               Navigator.pop(context);
@@ -205,6 +208,7 @@ class _editProfile extends State<editProfile> {
                               _downloadURL ?? userdata.downloadURL,
                               _location ?? userdata.location,
                               _isuserhome ?? userdata.isuserhome,
+                              _msgs ?? userdata.msgs,
                               // _fileURL ?? userdata.fileURL,
                             );
                             if (_downloadURL == null) {
