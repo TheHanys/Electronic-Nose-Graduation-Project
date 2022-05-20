@@ -3,7 +3,6 @@ import 'package:enos_app/services/auth.dart';
 import 'package:enos_app/shared/loading.dart';
 import 'package:flutter/material.dart';
 import 'package:enos_app/screens/sign_up.dart';
-import 'package:socket_io_client/socket_io_client.dart' as IO;
 
 class Signin extends StatefulWidget {
   const Signin({Key? key}) : super(key: key);
@@ -13,22 +12,6 @@ class Signin extends StatefulWidget {
 }
 
 class _SigninState extends State<Signin> {
-  /*connect() async {
-    IO.Socket socket = IO.io('http://192.168.1.4:5000', <String, dynamic>{
-      'transports': ['websocket'],
-     'autoConnect': false,
-    });
-    socket.connect();
-    socket.onConnect(((msg) => print("connected")));
-    print(socket.connected);
-    print(socket.id);
-  }
-
-  void initstate() {
-    super.initState();
-    connect();
-  }
-*/
   final AuthService _auth = AuthService();
   final _formkey = GlobalKey<FormState>();
   bool loading = false;
@@ -48,17 +31,26 @@ class _SigninState extends State<Signin> {
                 mainAxisAlignment: MainAxisAlignment.end,
                 children: <Widget>[
                   Text(
-                    "Welcome!",
+                    "Enose",
                     style: TextStyle(
                         color: Colors.blueGrey,
-                        fontSize: 38,
+                        fontSize: 50,
                         fontWeight: FontWeight.bold),
                   ),
-                  Text('Enose'),
                   SizedBox(
-                    height: 100,
+                    height: 5,
                   ),
-                  TextFormField(
+                  Text(
+                    'WELCOME!',
+                    style: TextStyle(fontSize: 18),
+                  ),
+                  SizedBox(
+                    height: 150,
+                  ),
+                  Container(
+                      //  height: 100.0,
+                      //width: 200.0,
+                      child: TextFormField(
                     textAlign: TextAlign.center,
                     keyboardType: TextInputType.text,
                     onChanged: (value) {
@@ -67,22 +59,31 @@ class _SigninState extends State<Signin> {
                       });
                     },
                     decoration: InputDecoration(
-                        contentPadding:
-                            EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
-                        hintText: 'enter your email',
+                        contentPadding: EdgeInsets.all(10),
+                        isDense: true,
+                        hintText: 'example@domain.com',
+                        prefixIcon: Padding(
+                          padding: EdgeInsets.only(
+                              top: 3), // add padding to adjust icon
+                          child: Icon(Icons.email, size: 20),
+                        ),
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(32.0))),
+                          borderRadius: BorderRadius.circular(0.0),
+                        )),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return 'Please enter your email';
                       }
                       return null;
                     },
-                  ),
+                  )),
                   SizedBox(
                     height: 10,
                   ),
-                  TextFormField(
+                  Container(
+                      //height: 100.0,
+                      // width: 200.0,
+                      child: TextFormField(
                     textAlign: TextAlign.center,
                     keyboardType: TextInputType.text,
                     onChanged: (value) {
@@ -95,25 +96,32 @@ class _SigninState extends State<Signin> {
                     autocorrect: false,
                     decoration: InputDecoration(
                         hintText: 'Enter your password',
+                        contentPadding: EdgeInsets.all(10),
+                        isDense: true,
+                        prefixIcon: Padding(
+                          padding: EdgeInsets.only(
+                              top: 3), // add padding to adjust icon
+                          child: Icon(Icons.password, size: 20),
+                        ),
                         border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(60.0),
+                          borderRadius: BorderRadius.circular(0.0),
                         )),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter password';
+                        return 'Please enter your password';
                       } else if (value.length < 8) {
                         return 'Please enter a password longer than 8 characters';
                       }
                       return null;
                     },
-                  ),
+                  )),
                   SizedBox(
-                    height: 80,
+                    height: 100,
                   ),
                   ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(30),
+                          borderRadius: BorderRadius.circular(40),
                         ),
                         primary: Colors.blueGrey,
                       ),
@@ -152,7 +160,7 @@ class _SigninState extends State<Signin> {
                   Column(
                     children: [
                       SizedBox(
-                        height: 20,
+                        height: 10,
                       ),
                       Text('Create an account?'),
                       TextButton(
@@ -172,7 +180,7 @@ class _SigninState extends State<Signin> {
                     mainAxisAlignment: MainAxisAlignment.center,
                   ),
                   SizedBox(
-                    height: 60,
+                    height: 100,
                   ),
                   Column(
                     children: [

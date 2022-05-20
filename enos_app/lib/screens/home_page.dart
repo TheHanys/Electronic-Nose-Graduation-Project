@@ -1,4 +1,3 @@
-import 'package:enos_app/models/message.dart';
 import 'package:flutter/material.dart';
 import 'package:enos_app/drawer/drawer.dart';
 import 'package:provider/provider.dart';
@@ -18,7 +17,6 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  List<MessageModel> messages = [];
   var Alert = "";
   List<String> Alerts = [];
   String? _currentname;
@@ -45,8 +43,11 @@ class _HomePageState extends State<HomePage> {
       socket.onConnect((msg) {
         socket.on("Alert", (msg) {
           print(msg);
-          Alert = msg;
-          Alerts.add(msg);
+          _showNotification();
+          setState(() {
+            Alert = msg;
+            Alerts.add(msg);
+          });
         });
       });
     });
@@ -54,16 +55,21 @@ class _HomePageState extends State<HomePage> {
 
   get onDidRecieveLocalNotification => null;
   get onSelectNotification => null;
+
   void initState() {
     super.initState();
+
     var initializationSettingsAndroid =
         AndroidInitializationSettings('@mipmap/ic_launcher');
+
     var initializationSettingsIOS = IOSInitializationSettings(
         onDidReceiveLocalNotification: onDidRecieveLocalNotification);
     var initializationSettings = InitializationSettings(
         android: initializationSettingsAndroid, iOS: initializationSettingsIOS);
     flutterLocalNotificationsPlugin.initialize(initializationSettings,
         onSelectNotification: onSelectNotification);
+    RecweiveMsg();
+    connect();
   }
 
   Future<void> _showNotification() async {
@@ -73,9 +79,11 @@ class _HomePageState extends State<HomePage> {
     var platformChannelSpecifics = NotificationDetails(
         android: androidPlatformChannelSpecifics,
         iOS: iOSPlatformChannelSpecifics);
+
     if (Alerts.isNotEmpty) {
       await flutterLocalNotificationsPlugin.show(
           100, "Enose Alert", Alert, platformChannelSpecifics);
+
       print("((alerts list isn't empty))");
       print(Alerts.length);
     }
@@ -85,10 +93,10 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     setState(() {
       connect();
-      connect();
-      RecweiveMsg();
+
       _showNotification();
     });
+
     final user = Provider.of<Myuser?>(context);
     return StreamBuilder<Myuser?>(
         stream: DatabaseService(uid: user!.uid).userData,
@@ -97,6 +105,7 @@ class _HomePageState extends State<HomePage> {
           if (snapshot.hasData) {
             Myuser userdata = snapshot.data!;
             _msgs = Alerts;
+
             DatabaseService(uid: userdata.uid).updateUserData(
               _currentname ?? userdata.name,
               _currentusername ?? userdata.userName,
@@ -109,7 +118,7 @@ class _HomePageState extends State<HomePage> {
 
             return Scaffold(
                 appBar: AppBar(
-                  title: Text('Alerts'),
+                  title: Text('Alerts History'),
                   backgroundColor: Colors.blueGrey,
                   actions: <Widget>[
                     IconButton(

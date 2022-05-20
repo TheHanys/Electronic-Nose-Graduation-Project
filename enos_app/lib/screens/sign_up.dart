@@ -52,7 +52,7 @@ class _accountState extends State<account> {
                       child: Column(
                         children: [
                           Text(
-                            'Sense For Me',
+                            'Enose',
                             textAlign: TextAlign.center,
                             style: TextStyle(fontSize: 40),
                           ),
@@ -67,7 +67,7 @@ class _accountState extends State<account> {
                             EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                         hintText: 'enter your Name',
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(32.0))),
+                            borderRadius: BorderRadius.circular(0.0))),
                     onChanged: (value) {
                       setState(() {
                         name = value;
@@ -87,7 +87,7 @@ class _accountState extends State<account> {
                             EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                         hintText: 'enter your password',
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(32.0))),
+                            borderRadius: BorderRadius.circular(0.0))),
                     obscureText: true,
                     onChanged: (value) {
                       setState(() {
@@ -112,7 +112,7 @@ class _accountState extends State<account> {
                             EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                         hintText: 'enter your Email',
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(32.0))),
+                            borderRadius: BorderRadius.circular(0.0))),
                     onChanged: (value) {
                       setState(() {
                         email = value;
@@ -132,7 +132,7 @@ class _accountState extends State<account> {
                             EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                         hintText: 'enter your username',
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(32.0))),
+                            borderRadius: BorderRadius.circular(0.0))),
                     onChanged: (value) {
                       setState(() {
                         username = value;
@@ -152,7 +152,7 @@ class _accountState extends State<account> {
                             EdgeInsets.fromLTRB(20.0, 15.0, 20.0, 15.0),
                         hintText: 'enter your phone number',
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(32.0))),
+                            borderRadius: BorderRadius.circular(0.0))),
                     onChanged: (value) {
                       setState(() {
                         phonenumber = value;
@@ -161,9 +161,11 @@ class _accountState extends State<account> {
                     keyboardType: TextInputType.phone,
                     validator: (phonenumbervalue) {
                       if (phonenumbervalue == null ||
-                          phonenumbervalue.isEmpty) {
-                        return 'Please enter your phone';
+                          phonenumbervalue.isEmpty ||
+                          phonenumbervalue.length != 11) {
+                        return 'Phone number is not correct';
                       }
+
                       return null;
                     },
                   ),
