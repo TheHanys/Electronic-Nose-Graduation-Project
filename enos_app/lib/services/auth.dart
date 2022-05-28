@@ -42,8 +42,7 @@ class AuthService {
     String downloadURL,
     String location,
     bool? isuserhome,
-    List?msgs,
-    //String fileURL
+    List? msgs,
   ) async {
     try {
       UserCredential result = await _auth.createUserWithEmailAndPassword(
@@ -52,7 +51,7 @@ class AuthService {
 
       //create a new document for the user with the uid
       await DatabaseService(uid: user!.uid).updateUserData(
-          name, username, phonenumber, downloadURL, location, isuserhome,msgs);
+          name, username, phonenumber, downloadURL, location, isuserhome, msgs);
       print(user.uid);
       return _userFromFirebaseUser(user);
     } catch (e) {

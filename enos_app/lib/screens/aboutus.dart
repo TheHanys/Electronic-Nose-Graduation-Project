@@ -20,25 +20,24 @@ class _aboutus extends State<aboutus> {
                 height: 100,
               ),
               Text(
-                'Sense For Me',
+                'Enose',
                 style: TextStyle(fontSize: 30),
               ),
               SizedBox(
                 height: 20,
               ),
-              //Text(
-              //'Developed by MIU Students',
-              //textAlign: TextAlign.center,
-              //style: TextStyle(fontSize: 15),
-              //),
               SizedBox(
                 height: 70,
               ),
               Text(
                 'Our proposed system aims to assist Anosmic people, by helping them recognize whether the place they occupy is safe or not; that with taking into consideration many aspects, starting from life-threatening situations that could be fatal, going through subjects that could threaten their health, and finally making sure they are in a safe surrounding free of any harmful-inhaled substances. To begin utilizing our services please connect the device to the electronic nose, and begin recording the detections detected by the electronic nose.',
-                textAlign: TextAlign.left,
+                textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 15),
               ),
+              SizedBox(
+                height: 20,
+              ),
+              Text("For any issues contact omarbaadry@gmail.com"),
             ],
           ),
         ));

@@ -2,7 +2,6 @@ import 'dart:ffi';
 
 import 'package:enos_app/models/user.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:enos_app/screens/location.dart';
 
 class DatabaseService {
   final String? uid;
@@ -19,7 +18,6 @@ class DatabaseService {
     String? location,
     bool? isuserhome,
     List? msgs,
-    //String? fileURL
   ) async {
     return await userdata.doc(uid).set({
       'name': name,
@@ -29,8 +27,7 @@ class DatabaseService {
           downloadURL ?? "https://www.un.org/sites/un2.un.org/files/user.png",
       'location': location,
       'isuserhome': isuserhome ?? false,
-      //'fileURL':fileURL ?? "https://www.un.org/sites/un2.un.org/files/user.png",
-      'msgs':msgs,
+      'msgs': msgs,
     });
   }
 
@@ -43,8 +40,7 @@ class DatabaseService {
       downloadURL: snapshot['downloadURL'],
       location: snapshot['location'],
       isuserhome: snapshot['isuserhome'],
-      msgs:snapshot['msgs'],
-      //fileURL: snapshot['fileURL'],
+      msgs: snapshot['msgs'],
     );
   }
 

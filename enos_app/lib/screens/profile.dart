@@ -32,7 +32,7 @@ class _profileState extends State<profile> {
               drawer: MyDrawer(),
               body: ListView(
                 children: [
-                  SizedBox(height: 20),
+                  SizedBox(height: 30),
                   ClipRRect(
                     borderRadius: BorderRadius.circular(10.0),
                     child: Image.network(

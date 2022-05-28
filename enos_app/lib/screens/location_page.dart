@@ -29,7 +29,6 @@ class _locationn extends State<locationn> {
   String? _location;
   bool? _isuserhome;
   List? _msgs;
-  //String? _fileURL;
 
   Future uploadimage({String? userid}) async {
     final postID = DateTime.now().millisecondsSinceEpoch.toString();
@@ -46,10 +45,8 @@ class _locationn extends State<locationn> {
     return StreamBuilder<Myuser?>(
         stream: DatabaseService(uid: user!.uid).userData,
         builder: (context, snapshot) {
-          //print(snapshot.hasData);
           if (snapshot.hasData) {
             Myuser userdata = snapshot.data!;
-            // print(userdata.name);
             return Scaffold(
                 resizeToAvoidBottomInset: false,
                 body: Form(
@@ -61,13 +58,18 @@ class _locationn extends State<locationn> {
                         backgroundColor: Colors.blueGrey,
                       ),
                       SizedBox(
-                        height: 10,
+                        height: 50,
+                      ),
+                      Text(
+                        "Are you at home?",
+                        textAlign: TextAlign.center,
+                        overflow: TextOverflow.ellipsis,
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20),
                       ),
                       Switch(
                         value: userdata.isuserhome!,
                         onChanged: (value) async {
-                          //print(value);
-
                           if (userdata.isuserhome == true) {
                             userdata.isuserhome = false;
                             await DatabaseService(uid: userdata.uid)
@@ -78,15 +80,12 @@ class _locationn extends State<locationn> {
                               _downloadURL ?? userdata.downloadURL,
                               _location ?? userdata.location,
                               _isuserhome ?? userdata.isuserhome,
-                               _msgs ?? userdata.msgs,
-                              //  _fileURL ?? userdata.fileURL,
+                              _msgs ?? userdata.msgs,
                             );
                             setState(() {
                               userdata.isuserhome = value;
-                              // print(userdata.isuserhome);
                             });
 
-                            print('tetet');
                             print(userdata.isuserhome);
                           } else if (userdata.isuserhome == false) {
                             userdata.isuserhome = true;
@@ -98,19 +97,18 @@ class _locationn extends State<locationn> {
                               _downloadURL ?? userdata.downloadURL,
                               _location ?? userdata.location,
                               _isuserhome ?? userdata.isuserhome,
-                               _msgs ?? userdata.msgs,
-                              //  _fileURL ?? userdata.fileURL,
+                              _msgs ?? userdata.msgs,
                             );
                             setState(() {
                               userdata.isuserhome = value;
-                              // print(userdata.isuserhome);
                             });
-
-                            // print(userdata.isuserhome);
                           }
                         },
                         activeTrackColor: Colors.lightGreenAccent,
                         activeColor: Colors.green,
+                      ),
+                      SizedBox(
+                        height: 40,
                       ),
                       ElevatedButton(
                           style: ElevatedButton.styleFrom(

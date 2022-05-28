@@ -1,11 +1,9 @@
 import 'package:enos_app/models/user.dart';
 import 'package:enos_app/screens/alerthistory.dart';
-import 'package:enos_app/screens/readtxt.dart';
 import 'package:enos_app/services/auth.dart';
 import 'package:enos_app/services/database.dart';
 import 'package:flutter/material.dart';
 import 'package:enos_app/screens/signin.dart';
-import 'package:enos_app/screens/home_page.dart';
 import 'package:enos_app/screens/profile.dart';
 import 'package:enos_app/screens/aboutus.dart';
 import 'package:provider/provider.dart';
@@ -42,14 +40,6 @@ class MyDrawer extends StatelessWidget {
                   ),
                 ),
                 ListTile(
-                  title: Text('Home page'),
-                  leading: Icon(Icons.home),
-                  onTap: () {
-                    Navigator.push(context,
-                        MaterialPageRoute(builder: (context) => HomePage()));
-                  },
-                ),
-                ListTile(
                   title: Text('Profile'),
                   leading: Icon(Icons.person),
                   onTap: () {
@@ -59,7 +49,7 @@ class MyDrawer extends StatelessWidget {
                 ),
                 ListTile(
                   title: Text('Alerts History'),
-                  leading: Icon(Icons.shopping_basket_outlined),
+                  leading: Icon(Icons.history),
                   onTap: () {
                     Navigator.push(context,
                         MaterialPageRoute(builder: (context) => History()));
@@ -73,14 +63,6 @@ class MyDrawer extends StatelessWidget {
                         MaterialPageRoute(builder: (context) => locationn()));
                   },
                 ),
-                // ListTile(
-                //  title: Text('upload file'),
-                //  leading: Icon(Icons.location_on),
-                //  onTap: () {
-                //    Navigator.push(context,
-                //       MaterialPageRoute(builder: (context) => uploadfile()));
-                //  },
-                //  ),
                 ListTile(
                   title: Text('About us'),
                   leading: Icon(Icons.support_agent),

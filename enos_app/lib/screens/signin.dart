@@ -1,4 +1,5 @@
 import 'package:enos_app/screens/home_page.dart';
+import 'package:enos_app/screens/location.dart';
 import 'package:enos_app/services/auth.dart';
 import 'package:enos_app/shared/loading.dart';
 import 'package:flutter/material.dart';
@@ -72,7 +73,7 @@ class _SigninState extends State<Signin> {
                         )),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter your email';
+                        return 'Email cannot be empty';
                       }
                       return null;
                     },
@@ -108,7 +109,7 @@ class _SigninState extends State<Signin> {
                         )),
                     validator: (value) {
                       if (value == null || value.isEmpty) {
-                        return 'Please enter your password';
+                        return 'password cannot be empty';
                       } else if (value.length < 8) {
                         return 'Please enter a password longer than 8 characters';
                       }
@@ -135,7 +136,7 @@ class _SigninState extends State<Signin> {
                           if (result == null) {
                             setState(() {
                               loading = false;
-                              error = 'Wrong email or password';
+                              // error = 'Wrong email or password';
                               print(email);
                               print(password);
                             });
@@ -143,10 +144,11 @@ class _SigninState extends State<Signin> {
                             Navigator.push(
                                 context,
                                 MaterialPageRoute(
-                                    builder: (context) => HomePage()));
+                                    builder: (context) => location()));
                           }
                           ScaffoldMessenger.of(context).showSnackBar(
-                            const SnackBar(content: Text('processing')),
+                            const SnackBar(
+                                content: Text('Incorrect Email or Password')),
                           );
                         }
                       },

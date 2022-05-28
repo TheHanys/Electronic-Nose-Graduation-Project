@@ -10,7 +10,6 @@ class Myuser {
   final String? downloadURL;
   final String? location;
   bool? isuserhome;
-  //final String fileURL;
   final List? msgs;
   Myuser({
     this.uid,
@@ -23,6 +22,5 @@ class Myuser {
     this.location,
     this.isuserhome,
     this.msgs,
-    //   this.fileURL = '',
   });
 }

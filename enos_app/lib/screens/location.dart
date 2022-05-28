@@ -1,5 +1,4 @@
 import 'dart:ffi';
-
 import 'package:enos_app/models/user.dart';
 import 'package:enos_app/screens/home_page.dart';
 import 'package:enos_app/services/database.dart';
@@ -9,7 +8,6 @@ import 'package:provider/provider.dart';
 import 'package:url_launcher/url_launcher.dart';
 
 class location extends StatefulWidget {
-  // location
   @override
   _locationState createState() => _locationState();
 }
@@ -43,8 +41,6 @@ class _locationState extends State<location> {
     });
   }
 
-  // function for opening it in google maps
-
   void googleMap() async {
     String googleUrl =
         "https://www.google.com/maps/search/?api=1&query=$latitude,$longitude";
@@ -61,7 +57,6 @@ class _locationState extends State<location> {
     return StreamBuilder<Myuser?>(
         stream: DatabaseService(uid: user!.uid).userData,
         builder: (context, snapshot) {
-          //print(snapshot.hasData);
           if (snapshot.hasData) {
             Myuser userdata = snapshot.data!;
             return MaterialApp(
@@ -139,7 +134,6 @@ class _locationState extends State<location> {
                             _location ?? userdata.location,
                             _isuserhome ?? userdata.isuserhome,
                             _msgs ?? userdata.msgs,
-                            //  _fileURL ?? userdata.fileURL,
                           );
                         },
                         child: Text("Confirm location"),

@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'package:enos_app/screens/location.dart';
 import 'package:enos_app/services/database.dart';
 import 'package:enos_app/shared/loading.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -17,7 +16,6 @@ class editProfile extends StatefulWidget {
 
 class _editProfile extends State<editProfile> {
   final _formkey = GlobalKey<FormState>();
-
   String? _currentname;
   String? _currentusername;
   String? _currentphonenumber;
@@ -28,7 +26,6 @@ class _editProfile extends State<editProfile> {
   String? _location;
   bool? _isuserhome;
   List? _msgs;
-  //String? _fileURL;
 
   Future uploadimage({String? userid}) async {
     final postID = DateTime.now().millisecondsSinceEpoch.toString();
@@ -45,10 +42,9 @@ class _editProfile extends State<editProfile> {
     return StreamBuilder<Myuser?>(
         stream: DatabaseService(uid: user!.uid).userData,
         builder: (context, snapshot) {
-          //print(snapshot.hasData);
           if (snapshot.hasData) {
             Myuser userdata = snapshot.data!;
-            // print(userdata.name);
+
             return Scaffold(
                 resizeToAvoidBottomInset: false,
                 body: Form(
@@ -63,7 +59,6 @@ class _editProfile extends State<editProfile> {
                         height: 80,
                       ),
                       TextFormField(
-                        //controller: name,
                         decoration: InputDecoration(
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(60.0),
@@ -85,7 +80,6 @@ class _editProfile extends State<editProfile> {
                         height: 10,
                       ),
                       TextFormField(
-                        //controller: userName,
                         decoration: InputDecoration(
                             border: OutlineInputBorder(
                               borderRadius: BorderRadius.circular(60.0),
@@ -97,7 +91,7 @@ class _editProfile extends State<editProfile> {
                             hintText: userdata.userName),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please update username';
+                            return 'username cannot be empty';
                           }
                           _currentusername = value;
                           return null;
@@ -119,7 +113,7 @@ class _editProfile extends State<editProfile> {
                             hintText: userdata.phoneNumber),
                         validator: (value) {
                           if (value == null || value.isEmpty) {
-                            return 'Please update phone number';
+                            return 'Phone number cannot be empty';
                           }
                           _currentphonenumber = value;
                           return null;
@@ -146,8 +140,6 @@ class _editProfile extends State<editProfile> {
                                 _location ?? userdata.location,
                                 _isuserhome ?? userdata.isuserhome,
                                 _msgs ?? userdata.msgs,
-
-                                //   _fileURL ?? userdata.fileURL,
                               );
                               Navigator.pop(context);
                             }
@@ -156,94 +148,6 @@ class _editProfile extends State<editProfile> {
                       SizedBox(
                         height: 60,
                       ),
-                      ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            primary: Colors.blueGrey,
-                          ),
-                          onPressed: () async {
-                            print(userdata.downloadURL);
-                            final pick = await ImagePicker()
-                                .pickImage(source: ImageSource.gallery);
-                            if (pick != null) {
-                              _image = File(pick.path);
-                              uploadimage(userid: userdata.uid);
-
-                              //print(_downloadURL);
-                              const snackBar = SnackBar(
-                                content: Text('image ready to be uploaded!'),
-                              );
-                              print(_downloadURL);
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(snackBar);
-                              //print(userdata.downloadURL);
-                            } else {
-                              print('error uploading image');
-                              const snackBarerror = SnackBar(
-                                content: Text('Error uploading image!'),
-                              );
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(snackBarerror);
-                            }
-                          },
-                          child: Text('choose profile picture')),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            primary: Colors.blueGrey,
-                          ),
-                          onPressed: () async {
-                            await DatabaseService(uid: userdata.uid)
-                                .updateUserData(
-                              _currentname ?? userdata.name,
-                              _currentusername ?? userdata.userName,
-                              _currentphonenumber ?? userdata.phoneNumber,
-                              _downloadURL ?? userdata.downloadURL,
-                              _location ?? userdata.location,
-                              _isuserhome ?? userdata.isuserhome,
-                              _msgs ?? userdata.msgs,
-                              // _fileURL ?? userdata.fileURL,
-                            );
-                            if (_downloadURL == null) {
-                              const snackBarup = SnackBar(
-                                content: Text('error uploading image!'),
-                              );
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(snackBarup);
-                            } else {
-                              const snackBarup = SnackBar(
-                                content: Text('image uploaded successfully!'),
-                              );
-                              ScaffoldMessenger.of(context)
-                                  .showSnackBar(snackBarup);
-                              Navigator.pop(context);
-                            }
-                          },
-                          child: Text('update profile picture')),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(30),
-                            ),
-                            primary: Colors.blueGrey,
-                          ),
-                          onPressed: () {
-                            Navigator.push(
-                                context,
-                                MaterialPageRoute(
-                                    builder: (context) => location()));
-                          },
-                          child: Text('update your location'))
                     ],
                   ),
                 ));

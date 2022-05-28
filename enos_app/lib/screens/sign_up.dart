@@ -40,10 +40,6 @@ class _accountState extends State<account> {
               key: _formkey,
               child: Column(
                 children: <Widget>[
-                  //AppBar(
-                  // title: Text('Sign up'),
-                  //  backgroundColor: Colors.blueGrey,
-                  //  ),
                   SizedBox(
                     height: 150,
                   ),
@@ -52,9 +48,11 @@ class _accountState extends State<account> {
                       child: Column(
                         children: [
                           Text(
-                            'Enose',
-                            textAlign: TextAlign.center,
-                            style: TextStyle(fontSize: 40),
+                            "Enose",
+                            style: TextStyle(
+                                color: Colors.blueGrey,
+                                fontSize: 50,
+                                fontWeight: FontWeight.bold),
                           ),
                         ],
                       )),
@@ -75,7 +73,7 @@ class _accountState extends State<account> {
                     },
                     validator: (namevalue) {
                       if (namevalue == null || namevalue.isEmpty) {
-                        return 'Please enter your Name';
+                        return 'Name cannot be empty';
                       }
                       return null;
                     },
@@ -98,7 +96,7 @@ class _accountState extends State<account> {
                     autocorrect: false,
                     validator: (passvalue) {
                       if (passvalue == null || passvalue.isEmpty) {
-                        return 'Please enter password';
+                        return 'password cannot be empty';
                       } else if (passvalue.length < 8) {
                         return 'Please enter a password longer than 8 characters';
                       }
@@ -120,7 +118,7 @@ class _accountState extends State<account> {
                     },
                     validator: (emailvalue) {
                       if (emailvalue == null || emailvalue.isEmpty) {
-                        return 'Please enter your email';
+                        return 'email cannot be empty';
                       }
                       return null;
                     },
@@ -140,7 +138,7 @@ class _accountState extends State<account> {
                     },
                     validator: (usernamevalue) {
                       if (usernamevalue == null || usernamevalue.isEmpty) {
-                        return 'Please enter your username';
+                        return 'username cannot be empty';
                       }
                       return null;
                     },
@@ -161,9 +159,10 @@ class _accountState extends State<account> {
                     keyboardType: TextInputType.phone,
                     validator: (phonenumbervalue) {
                       if (phonenumbervalue == null ||
-                          phonenumbervalue.isEmpty ||
-                          phonenumbervalue.length != 11) {
-                        return 'Phone number is not correct';
+                          phonenumbervalue.isEmpty) {
+                        return 'phone number cannot be empty';
+                      } else if (phonenumbervalue.length != 11) {
+                        return 'Please enter a valid phone number';
                       }
 
                       return null;
@@ -194,7 +193,6 @@ class _accountState extends State<account> {
                             location,
                             isuserhome,
                             msgs,
-                            // fileURL,
                           );
                           if (result == null) {
                             setState(() {

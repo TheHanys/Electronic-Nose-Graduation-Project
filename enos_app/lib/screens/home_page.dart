@@ -28,7 +28,7 @@ class _HomePageState extends State<HomePage> {
   bool? _isuserhome;
   List? _msgs;
 
-  IO.Socket socket = IO.io('http://192.168.1.4:5000', <String, dynamic>{
+  IO.Socket socket = IO.io('http://192.168.1.5:5000', <String, dynamic>{
     'transports': ['websocket'],
     'autoConnect': true,
   });
@@ -58,7 +58,7 @@ class _HomePageState extends State<HomePage> {
 
   void initState() {
     super.initState();
-
+    //push notification
     var initializationSettingsAndroid =
         AndroidInitializationSettings('@mipmap/ic_launcher');
 
@@ -69,7 +69,8 @@ class _HomePageState extends State<HomePage> {
     flutterLocalNotificationsPlugin.initialize(initializationSettings,
         onSelectNotification: onSelectNotification);
     RecweiveMsg();
-    connect();
+
+    connect(); //connect to server
   }
 
   Future<void> _showNotification() async {
@@ -84,7 +85,7 @@ class _HomePageState extends State<HomePage> {
       await flutterLocalNotificationsPlugin.show(
           100, "Enose Alert", Alert, platformChannelSpecifics);
 
-      print("((alerts list isn't empty))");
+      print("[alerts list isn't empty]");
       print(Alerts.length);
     }
   }
@@ -93,7 +94,6 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     setState(() {
       connect();
-
       _showNotification();
     });
 
@@ -101,7 +101,6 @@ class _HomePageState extends State<HomePage> {
     return StreamBuilder<Myuser?>(
         stream: DatabaseService(uid: user!.uid).userData,
         builder: (context, snapshot) {
-          //print(snapshot.hasData);
           if (snapshot.hasData) {
             Myuser userdata = snapshot.data!;
             _msgs = Alerts;
@@ -118,7 +117,7 @@ class _HomePageState extends State<HomePage> {
 
             return Scaffold(
                 appBar: AppBar(
-                  title: Text('Alerts History'),
+                  title: Text('Alerts'),
                   backgroundColor: Colors.blueGrey,
                   actions: <Widget>[
                     IconButton(
@@ -139,12 +138,13 @@ class _HomePageState extends State<HomePage> {
                     itemBuilder: (context, index) {
                       return Container(
                           decoration: BoxDecoration(
-                            border: Border(
-                                bottom: BorderSide(), right: BorderSide()),
+                            border: Border(right: BorderSide()),
                           ),
-                          child: ListTile(
+                          child: Card(
+                              child: ListTile(
+                            leading: Icon(Icons.warning_outlined),
                             title: Text('${Alerts[index]}'),
-                          ));
+                          )));
                     }));
           } else {
             return Loading();
